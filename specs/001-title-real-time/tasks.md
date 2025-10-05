@@ -29,8 +29,8 @@
 ---
 
 ## Phase 3.1: Setup
-- [ ] T001 Create backend solution and projects (Api, Simulation, Processing, Infrastructure) in `backend/src/` and test project in `backend/tests/`.
-- [ ] T002 Initialize Angular 17 workspace and app in `frontend/` with routing and strict mode.
+- [x] T001 Create backend solution and projects (Api, Simulation, Processing, Infrastructure) in `backend/src/` and test project in `backend/tests/`. (Done: sln + Api, Simulation, Processing, Infrastructure, Tests created; refs wired)
+- [x] T002 Initialize Angular 17 workspace and app in `frontend/` with routing and strict mode. (Done: Angular CLI 17 scaffolded in `frontend/`)
 - [ ] T003 [P] Configure linting/formatting: `.editorconfig`, backend analyzers, Angular ESLint/prettier.
 - [ ] T004 Add docker compose and base images in `deploy/docker-compose.yml` for Api, Frontend, Redis, (optional) Prometheus & Grafana.
 - [ ] T005 [P] Set up HTTPS dev certs, API key via environment, and .env handling (no secrets in repo).
