@@ -9,6 +9,9 @@ Quickstart:
 - Ensure you have a dev HTTPS cert. On Windows/macOS with .NET SDK: run `dotnet dev-certs https -ep <path-to>/aspnetapp.pfx -p <password>` and update `.env` paths.
 - Bring up services via Docker: `docker compose -f deploy/docker-compose.yml up --build`
 
+Health checks: the API exposes `/healthz` and Prometheus at `/metrics`; compose uses these for liveness.
+See `specs/001-title-real-time/manual-checklist.md` for a step-by-step manual test flow.
+
 Services:
 - API: https://localhost:5001
 - Frontend: https://localhost:4200

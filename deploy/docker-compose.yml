@@ -12,13 +12,26 @@ services:
       ASPNETCORE_HTTPS_PORTS: 5001
       ASPNETCORE_ENVIRONMENT: Development
       REDIS__CONNECTION: ${REDIS__CONNECTION:-redis:6379}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:4200}
     ports:
       - "5000:80"
       - "5001:443"
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     volumes:
       - ./certs:/https:ro
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:80/healthz" ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 512M
 
   frontend:
     build:
@@ -30,7 +43,19 @@ services:
     ports:
       - "4200:4200"
     depends_on:
-      - api
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4200" ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
 
   redis:
     image: redis:7-alpine
@@ -39,6 +64,17 @@ services:
     command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
     volumes:
       - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
 
   # Optional monitoring stack
   prometheus:

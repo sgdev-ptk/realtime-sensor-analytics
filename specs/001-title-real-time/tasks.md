@@ -83,17 +83,17 @@ Frontend services & UI:
 ## Phase 3.4: Integration
 - [x] T033 Wire Processor→Redis and Hub publishing; ensure per-sensor and global aggregates in `backend/src/Processing/Processor.cs`.
 - [x] T034 Configure Redis TTL and maxmemory policy; verify purge behavior in `backend/src/Infrastructure/RedisStore.cs`.
-- [ ] T035 Add structured logging + minimal tracing spans across Simulator/Processor/Hub in `backend/src/*`.
+- [x] T035 Add structured logging + minimal tracing spans across Simulator/Processor/Hub in `backend/src/*`.
 - [x] T036 Frontend: connect services to components; delta frames only; performance tuning flags in `frontend/src/app/*`.
-- [ ] T037 Add docker compose wiring (ports, env, secrets via env), dev cert mapping in `deploy/docker-compose.yml`.
+- [x] T037 Add docker compose wiring (ports, env, secrets via env), dev cert mapping in `deploy/docker-compose.yml`.
 
 ## Phase 3.5: Polish
-- [ ] T038 [P] Unit tests for aggregator (Welford) and anomaly thresholds in `backend/tests/unit/ProcessorMathTests.cs`.
-- [ ] T039 [P] Frontend unit tests for `ChartService` in `frontend/src/app/services/chart.service.spec.ts`.
-- [ ] T040 Performance validation script (sustain 1k/s for 10 min; p95 <250 ms; drops ≤5% during 2× burst) in `backend/tests/perf/PerfValidation.cs`.
-- [ ] T041 [P] Update docs: quickstart, README, runbook in `specs/001-title-real-time/quickstart.md` and repo `README.md`.
-- [ ] T042 Compose hardening: healthchecks, restart policies, resource limits in `deploy/docker-compose.yml`.
-- [ ] T043 Manual test checklist and screenshots for demo in `specs/001-title-real-time/`.
+- [x] T038 [P] Unit tests for aggregator (Welford) and anomaly thresholds in `backend/tests/unit/ProcessorMathTests.cs`.
+- [x] T039 [P] Frontend unit tests for `ChartService` in `frontend/src/app/services/chart.service.spec.ts`.
+- [ ] T040 Performance validation script (sustain 1k/s for 10 min; p95 <250 ms; drops ≤5% during 2× burst) in `backend/tests/perf/`.
+ - [ ] T041 [P] Update docs: quickstart, README, runbook in `specs/001-title-real-time/quickstart.md` and repo `README.md`.
+ - [x] T042 Compose hardening: healthchecks, restart policies, resource limits in `deploy/docker-compose.yml`.
+ - [x] T043 Manual test checklist and screenshots for demo in `specs/001-title-real-time/`.
 
 ## Dependencies
 - Setup (T001–T007) before Tests (T008–T016) and implementation.

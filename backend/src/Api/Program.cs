@@ -29,6 +29,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 builder.Services.AddControllers();
+builder.Services.AddHealthChecks();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("default", policy =>
@@ -127,6 +128,9 @@ app.Use(async (ctx, next) =>
 
 // Prometheus metrics endpoint (scrape)
 app.MapMetrics("/metrics");
+
+// Liveness/Readiness probe for containers
+app.MapHealthChecks("/healthz");
 
 // SignalR stream hub mapping (requires API key via middleware)
 app.MapHub<Api.StreamHub>("/api/stream");
