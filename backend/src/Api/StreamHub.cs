@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using Prometheus;
 
 namespace Api;
 
-public class StreamHub : Hub
+public class StreamHub(ILogger<StreamHub> logger) : Hub
 {
 	private static readonly Counter ConnectionsStarted = Metrics.CreateCounter(
 		"streamhub_connections_total", "Number of SignalR connections started");
@@ -17,6 +18,7 @@ public class StreamHub : Hub
 	public override Task OnConnectedAsync()
 	{
 		ConnectionsStarted.Inc();
+		logger.LogInformation("SignalR connected connectionId={ConnectionId}", this.Context.ConnectionId);
 		// Clients call JoinSensor to receive data
 		return base.OnConnectedAsync();
 	}
@@ -24,18 +26,21 @@ public class StreamHub : Hub
 	public override Task OnDisconnectedAsync(Exception? exception)
 	{
 		ConnectionsEnded.Inc();
+		logger.LogInformation("SignalR disconnected connectionId={ConnectionId}", this.Context.ConnectionId);
 		return base.OnDisconnectedAsync(exception);
 	}
 
 	public Task JoinSensor(string sensorId)
 	{
 		Joins.Inc();
+		logger.LogDebug("Join sensor group sensor={SensorId} connectionId={ConnectionId}", sensorId, this.Context.ConnectionId);
 		return this.Groups.AddToGroupAsync(this.Context.ConnectionId, GroupFor(sensorId));
 	}
 
 	public Task LeaveSensor(string sensorId)
 	{
 		Leaves.Inc();
+		logger.LogDebug("Leave sensor group sensor={SensorId} connectionId={ConnectionId}", sensorId, this.Context.ConnectionId);
 		return this.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, GroupFor(sensorId));
 	}
 

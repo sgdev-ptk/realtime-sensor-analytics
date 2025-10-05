@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Processing;
 using Processing.Models;
 using Prometheus;
+using System.Diagnostics;
 
 #pragma warning disable SA1600 // Elements should be documented
 public sealed class FrameBroadcaster(ILogger<FrameBroadcaster> logger, IHubContext<StreamHub> hub)
@@ -24,6 +25,7 @@ public sealed class FrameBroadcaster(ILogger<FrameBroadcaster> logger, IHubConte
     private readonly ILogger<FrameBroadcaster> log = logger;
     private readonly IHubContext<StreamHub> hubContext = hub;
     private readonly ConcurrentDictionary<string, List<Reading>> buffers = new();
+    private static readonly ActivitySource Trace = new("Api.FrameBroadcaster");
 
     public void Add(Reading reading)
     {
@@ -65,10 +67,14 @@ public sealed class FrameBroadcaster(ILogger<FrameBroadcaster> logger, IHubConte
 
                 try
                 {
+                    using var activity = Trace.StartActivity("send_frame", ActivityKind.Producer);
+                    activity?.SetTag("sensor", sensorId);
+                    activity?.SetTag("points", snapshot.Count);
                     await this.hubContext.Clients.Group(StreamHub.GroupFor(sensorId))
                         .SendAsync("frame", snapshot, cancellationToken: stoppingToken);
                     FramesSent.Inc();
                     PointsSent.Inc(snapshot.Count);
+                    this.log.LogDebug("Sent frame sensor={Sensor} points={Count}", sensorId, snapshot.Count);
                 }
                 catch (Exception ex)
                 {

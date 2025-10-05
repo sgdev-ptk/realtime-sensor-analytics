@@ -3,6 +3,7 @@ namespace Processing;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
+using System.Diagnostics.Metrics;
 using System.Threading.Channels;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,8 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
         {
             Buckets = Histogram.LinearBuckets(start: 10, width: 50, count: 12),
         });
+
+    private static readonly ActivitySource Trace = new("Processing.Processor");
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -65,6 +68,8 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
             }
 
             // Process batch
+            using var activity = Trace.StartActivity("process_batch", ActivityKind.Internal);
+            activity?.SetTag("batch.count", batch.Count);
             foreach (var r in batch)
             {
                 var w = state.GetOrAdd(r.SensorId, _ => new Welford());
@@ -93,6 +98,12 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
                             r.Value,
                             w.Mean,
                             w.StdDev);
+                        activity?.AddEvent(new ActivityEvent("anomaly", tags: new ActivityTagsCollection
+                        {
+                            { "sensor", r.SensorId },
+                            { "z", z },
+                            { "value", r.Value },
+                        }));
                     }
                 }
             }
@@ -100,6 +111,7 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
             // Compute per-sensor and global aggregates over the last minute
             var cutoff = DateTimeOffset.UtcNow - oneMinute;
             var global = new List<double>();
+            var perSensorAggs = 0;
             foreach (var kvp in windowBuffers)
             {
                 var sensorId = kvp.Key;
@@ -128,6 +140,7 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
                     P95 = this.Percentile(values, 0.95),
                 };
                 _ = store.StoreAggregateAsync(agg, stoppingToken);
+                perSensorAggs++;
             }
 
             if (global.Count > 0)
@@ -149,6 +162,8 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
 
             BatchesProcessed.Inc();
             BatchSizes.Observe(batch.Count);
+            logger.LogInformation("Processed batch size={BatchSize} perSensorAggs={Aggs}", batch.Count, perSensorAggs);
+            activity?.SetTag("aggregates.per_sensor", perSensorAggs);
         }
     }
 

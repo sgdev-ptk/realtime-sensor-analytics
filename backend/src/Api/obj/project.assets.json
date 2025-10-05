@@ -2150,11 +2150,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj",
+      "projectUniqueName": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj",
+      "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj",
       "packagesPath": "C:\\Users\\sumit\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\obj\\",
+      "outputPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2178,14 +2178,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj"
             },
-            "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
-              "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
+            "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
+              "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
             },
-            "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {
-              "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj"
+            "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {
+              "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj"
             }
           }
         }
