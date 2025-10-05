@@ -1,0 +1,39 @@
+openapi: 3.0.3
+info:
+  title: Real-Time Sensor Analytics API (PoC)
+  version: 0.1.0
+servers:
+  - url: https://localhost:5001
+paths:
+  /api/stream:
+    get:
+      summary: Upgrade to WebSocket/SignalR transport for live readings/aggregates/alerts
+      parameters:
+        - in: header
+          name: x-api-key
+          required: true
+          schema: { type: string }
+      responses:
+        '101': { description: Switching Protocols }
+        '401': { description: Unauthorized }
+  /api/metrics:
+    get:
+      summary: Prometheus metrics endpoint
+      responses:
+        '200': { description: OK }
+  /api/ack/{alertId}:
+    post:
+      summary: Acknowledge an alert
+      parameters:
+        - in: path
+          name: alertId
+          required: true
+          schema: { type: string }
+        - in: header
+          name: x-api-key
+          required: true
+          schema: { type: string }
+      responses:
+        '204': { description: No Content }
+        '401': { description: Unauthorized }
+components: {}
