@@ -87,3 +87,12 @@ app.MapPost("/api/ack/{alertId}", (string alertId) => Results.NoContent());
 app.MapHub<StreamHub>("/api/stream");
 
 app.Run();
+
+// Expose Program class for integration testing
+#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable SA1601 // Partial elements should be documented
+public partial class Program
+{
+}
+#pragma warning restore SA1601
+#pragma warning restore SA1600
