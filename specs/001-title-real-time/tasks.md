@@ -32,7 +32,7 @@
 - [x] T001 Create backend solution and projects (Api, Simulation, Processing, Infrastructure) in `backend/src/` and test project in `backend/tests/`. (Done: sln + Api, Simulation, Processing, Infrastructure, Tests created; refs wired)
 - [x] T002 Initialize Angular 17 workspace and app in `frontend/` with routing and strict mode. (Done: Angular CLI 17 scaffolded in `frontend/`)
 - [x] T003 [P] Configure linting/formatting: `.editorconfig`, backend analyzers, Angular ESLint/prettier. (Done: root .editorconfig; backend analyzers via Directory.Build.props; frontend ESLint + Prettier and scripts)
-- [ ] T004 Add docker compose and base images in `deploy/docker-compose.yml` for Api, Frontend, Redis, (optional) Prometheus & Grafana.
+- [x] T004 Add docker compose and base images in `deploy/docker-compose.yml` for Api, Frontend, Redis, (optional) Prometheus & Grafana. (Done: compose + backend/frontend Dockerfiles + prometheus config)
 - [ ] T005 [P] Set up HTTPS dev certs, API key via environment, and .env handling (no secrets in repo).
 - [ ] T006 [P] Add CI basics (build and lint jobs) and dependency lockfiles enforcement.
 - [ ] T007 Install Playwright (or Cypress) for frontend integration tests under `frontend/tests/integration/`.
