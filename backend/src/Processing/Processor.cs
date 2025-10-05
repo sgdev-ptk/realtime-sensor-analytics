@@ -4,13 +4,26 @@ using System.Threading.Channels;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Processing.Models;
+using Prometheus;
 
 namespace Processing;
 
-public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channel) : BackgroundService
+#pragma warning disable SA1600 // Elements should be documented
+public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channel, IFrameSink frameSink) : BackgroundService
 {
     private const int MaxBatchSize = 500;
     private static readonly TimeSpan MaxBatchWindow = TimeSpan.FromMilliseconds(50);
+    private static readonly Counter ReadingsProcessed = Metrics.CreateCounter(
+        "processor_readings_total", "Number of readings processed");
+
+    private static readonly Counter BatchesProcessed = Metrics.CreateCounter(
+        "processor_batches_total", "Number of batches processed");
+
+    private static readonly Histogram BatchSizes = Metrics.CreateHistogram(
+        "processor_batch_size", "Batch sizes of readings", new HistogramConfiguration
+        {
+            Buckets = Histogram.LinearBuckets(start: 10, width: 50, count: 12),
+        });
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -53,6 +66,8 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
             {
                 var w = state.GetOrAdd(r.SensorId, _ => new Welford());
                 w.Add(r.Value);
+                frameSink.Add(r);
+                ReadingsProcessed.Inc();
 
                 // Simple z-score anomaly detection
                 if (w.Count >= 30 && w.StdDev > 1e-9)
@@ -61,31 +76,43 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
                     if (z >= 3.0)
                     {
                         // TODO: publish alert in later tasks (T022/T033)
-                        logger.LogDebug("Anomaly detected sensor={Sensor} z={Z:F2} value={Value:F2} mean={Mean:F2} std={Std:F2}",
-                            r.SensorId, z, r.Value, w.Mean, w.StdDev);
+                        logger.LogDebug(
+                            "Anomaly detected sensor={Sensor} z={Z:F2} value={Value:F2} mean={Mean:F2} std={Std:F2}",
+                            r.SensorId,
+                            z,
+                            r.Value,
+                            w.Mean,
+                            w.StdDev);
                     }
                 }
             }
+
+            BatchesProcessed.Inc();
+            BatchSizes.Observe(batch.Count);
         }
     }
 
     private sealed class Welford
     {
-        private double _mean;
-        private double _m2;
+        private double mean;
+        private double m2;
+
         public int Count { get; private set; }
 
-        public double Mean => this._mean;
-        public double Variance => this.Count > 1 ? this._m2 / (this.Count - 1) : 0.0;
+        public double Mean => this.mean;
+
+        public double Variance => this.Count > 1 ? this.m2 / (this.Count - 1) : 0.0;
+
         public double StdDev => Math.Sqrt(this.Variance);
 
         public void Add(double x)
         {
             this.Count++;
-            var delta = x - this._mean;
-            this._mean += delta / this.Count;
-            var delta2 = x - this._mean;
-            this._m2 += delta * delta2;
+            var delta = x - this.mean;
+            this.mean += delta / this.Count;
+            var delta2 = x - this.mean;
+            this.m2 += delta * delta2;
         }
     }
 }
+#pragma warning restore SA1600 // Elements should be documented

@@ -67,13 +67,13 @@ Services (backend):
 - [x] T022 Implement Redis repositories (raw, aggregates, alerts with TTL=24h) in `backend/src/Infrastructure/RedisStore.cs`.
 
 API & Hub (backend):
-- [ ] T023 Implement SignalR Hub with groups per sensor and coalesced frames (~10–20 FPS) in `backend/src/Api/StreamHub.cs`.
-- [ ] T024 Implement metrics endpoint and Prometheus.Net configuration in `backend/src/Api/MetricsController.cs`.
-- [ ] T025 Implement POST /api/ack/{alertId} with API-key auth in `backend/src/Api/AlertsController.cs`.
-- [ ] T026 Add API-key middleware + HTTPS + CORS/security headers in `backend/src/Api/Program.cs`.
+- [x] T023 Implement SignalR Hub with groups per sensor and coalesced frames (~10–20 FPS) in `backend/src/Api/StreamHub.cs`. (Done: Hub groups + FrameBroadcaster coalescing + metrics)
+- [ ] T024 Implement metrics endpoint and Prometheus.Net configuration in `backend/src/Api/MetricsController.cs`. (In progress: prometheus-net wired, /metrics exposed; still add custom app counters and docs)
+- [ ] T025 Implement POST /api/ack/{alertId} with API-key auth in `backend/src/Api/AlertsController.cs`. (Pending)
+- [ ] T026 Add API-key middleware + HTTPS + CORS/security headers in `backend/src/Api/Program.cs`. (In progress: API-key header/query supported; basic CORS policy enabled)
 
 Frontend services & UI:
-- [ ] T027 [P] Implement `SignalRService` (RxJS subjects: readings/aggregates/alerts; 5s replay) in `frontend/src/app/services/signalr.service.ts`.
+- [x] T027 [P] Implement `SignalRService` (RxJS subjects: readings/aggregates/alerts; 5s replay) in `frontend/src/app/services/signalr.service.ts`. (Done: frames subject + Join/Leave + reconnect)
 - [ ] T028 [P] Implement `ChartService` (frame scheduler, LTTB downsampling, 100k ring buffer with O(1) evict) in `frontend/src/app/services/chart.service.ts`.
 - [ ] T029 Implement `LiveChart` component in `frontend/src/app/components/live-chart/`.
 - [ ] T030 Implement `StatsPanel` component in `frontend/src/app/components/stats-panel/`.
