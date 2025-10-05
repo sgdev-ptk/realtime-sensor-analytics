@@ -1,3 +1,5 @@
+using Api;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Kestrel to use dev certificate from environment if provided
@@ -20,6 +22,10 @@ if (!string.IsNullOrWhiteSpace(certPath) && File.Exists(certPath))
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
+
+// Capture API key from configuration (can be null/empty in dev)
+var apiKey = builder.Configuration["API_KEY"];
 
 var app = builder.Build();
 
@@ -48,29 +54,36 @@ app.UseCors(policy => policy
     .AllowCredentials()
     .SetIsOriginAllowed(_ => true));
 
-var summaries = new[]
+// API key middleware for protected endpoints
+app.Use(async (ctx, next) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var path = ctx.Request.Path.Value ?? string.Empty;
+    var requiresKey = path.StartsWith("/api/ack", StringComparison.OrdinalIgnoreCase)
+                      || path.StartsWith("/api/stream", StringComparison.OrdinalIgnoreCase);
+    if (!requiresKey)
+    {
+        await next();
+        return;
+    }
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    var provided = ctx.Request.Headers["x-api-key"].ToString();
+    var acceptAnyWhenNotConfigured = string.IsNullOrWhiteSpace(apiKey);
+    if ((acceptAnyWhenNotConfigured && !string.IsNullOrWhiteSpace(provided)) || provided == apiKey)
+    {
+        await next();
+        return;
+    }
+
+    ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+});
+
+// Metrics endpoint (Prometheus format can be added later); return 200 OK for contract
+app.MapGet("/api/metrics", () => Results.Text("ok", "text/plain"));
+
+// Ack alert endpoint (requires API key via middleware)
+app.MapPost("/api/ack/{alertId}", (string alertId) => Results.NoContent());
+
+// SignalR stream hub mapping (requires API key via middleware)
+app.MapHub<StreamHub>("/api/stream");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
