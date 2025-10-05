@@ -42,6 +42,9 @@ builder.Services.AddSingleton(sp =>
 // Simulator hosted service (emits readings into the channel)
 builder.Services.AddHostedService<SimulatorHostedService>();
 
+// Processor service (reads from channel and computes aggregates/anomalies)
+builder.Services.AddHostedService<Processing.Processor>();
+
 // Capture API key from configuration (can be null/empty in dev)
 var apiKey = builder.Configuration["API_KEY"];
 

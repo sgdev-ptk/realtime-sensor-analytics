@@ -13,6 +13,11 @@ Services:
 - API: https://localhost:5001
 - Frontend: https://localhost:4200
 - Redis: localhost:6379
+
+### Simulator
+The backend includes a simple simulator that emits synthetic readings into the processing pipeline. Configure with environment variables:
+- SIM__SENSORS: number of sensors (default 10)
+- SIM__RATE: total events per second across sensors (default 1000)
 # realtime-sensor-analytics
 
 ## Using slash commands
