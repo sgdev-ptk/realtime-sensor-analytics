@@ -41,9 +41,9 @@
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
 
 Contract tests (backend):
-- [ ] T008 [P] Contract test: metrics endpoint 200 in `backend/tests/contract/MetricsEndpointTests.cs`.
-- [ ] T009 [P] Contract test: acknowledge alert 204 in `backend/tests/contract/AckAlertEndpointTests.cs`.
-- [ ] T010 [P] Contract test: SignalR stream connection/auth in `backend/tests/contract/StreamConnectionTests.cs`.
+- [x] T008 [P] Contract test: metrics endpoint 200 in `backend/tests/contract/MetricsEndpointTests.cs`. (Added; failing until implemented)
+- [x] T009 [P] Contract test: acknowledge alert 204 in `backend/tests/contract/AckAlertEndpointTests.cs`. (Added; failing until implemented)
+- [x] T010 [P] Contract test: SignalR stream connection/auth in `backend/tests/contract/StreamConnectionTests.cs`. (Added; failing until implemented)
 
 Integration tests (backend):
 - [ ] T011 [P] Reconnect backfill returns last 5s in `backend/tests/integration/ReconnectBackfillTests.cs`.
