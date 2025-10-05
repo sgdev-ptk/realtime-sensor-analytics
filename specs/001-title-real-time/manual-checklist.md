@@ -1,7 +1,7 @@
 # Manual Test Checklist
 
 - [ ] Bring up stack: docker compose -f deploy/docker-compose.yml up --build
-- [ ] Open frontend https://localhost:4200 (accept self-signed)
+- [ ] Open frontend http://localhost:4200
 - [ ] Connect with API key; join sensor-1
 - [ ] LiveChart animates; FPS feels smooth
 - [ ] Stats show ingest rate and p95 latency updating
