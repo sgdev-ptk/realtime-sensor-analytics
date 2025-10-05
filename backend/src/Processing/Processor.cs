@@ -1,15 +1,16 @@
+namespace Processing;
+
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Channels;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Processing.Models;
 using Prometheus;
 
-namespace Processing;
-
 #pragma warning disable SA1600 // Elements should be documented
-public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channel, IFrameSink frameSink) : BackgroundService
+public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channel, IFrameSink frameSink, IStorageSink store) : BackgroundService
 {
     private const int MaxBatchSize = 500;
     private static readonly TimeSpan MaxBatchWindow = TimeSpan.FromMilliseconds(50);
@@ -34,6 +35,8 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
         var state = new ConcurrentDictionary<string, Welford>();
 
         var sw = Stopwatch.StartNew();
+        var oneMinute = TimeSpan.FromMinutes(1);
+        var windowBuffers = new ConcurrentDictionary<string, Queue<Reading>>();
         while (!stoppingToken.IsCancellationRequested)
         {
             batch.Clear();
@@ -69,6 +72,13 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
                 frameSink.Add(r);
                 ReadingsProcessed.Inc();
 
+                // Persist raw reading with TTL
+                _ = store.StoreReadingAsync(r, stoppingToken);
+
+                // Maintain 1-minute buffer per-sensor
+                var q = windowBuffers.GetOrAdd(r.SensorId, _ => new Queue<Reading>(512));
+                q.Enqueue(r);
+
                 // Simple z-score anomaly detection
                 if (w.Count >= 30 && w.StdDev > 1e-9)
                 {
@@ -87,9 +97,84 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
                 }
             }
 
+            // Compute per-sensor and global aggregates over the last minute
+            var cutoff = DateTimeOffset.UtcNow - oneMinute;
+            var global = new List<double>();
+            foreach (var kvp in windowBuffers)
+            {
+                var sensorId = kvp.Key;
+                var q = kvp.Value;
+                while (q.Count > 0 && q.Peek().Ts < cutoff)
+                {
+                    q.Dequeue();
+                }
+
+                if (q.Count == 0)
+                {
+                    continue;
+                }
+
+                var values = q.Select(x => x.Value).ToArray();
+                global.AddRange(values);
+                var agg = new Aggregate
+                {
+                    SensorId = sensorId,
+                    Window = Window.W1m,
+                    Count = values.LongLength,
+                    Min = values.Min(),
+                    Max = values.Max(),
+                    Mean = values.Average(),
+                    Stdev = this.StdDev(values),
+                    P95 = this.Percentile(values, 0.95),
+                };
+                _ = store.StoreAggregateAsync(agg, stoppingToken);
+            }
+
+            if (global.Count > 0)
+            {
+                var gv = global.ToArray();
+                var gagg = new Aggregate
+                {
+                    SensorId = null,
+                    Window = Window.W1m,
+                    Count = gv.LongLength,
+                    Min = gv.Min(),
+                    Max = gv.Max(),
+                    Mean = gv.Average(),
+                    Stdev = this.StdDev(gv),
+                    P95 = this.Percentile(gv, 0.95),
+                };
+                _ = store.StoreAggregateAsync(gagg, stoppingToken);
+            }
+
             BatchesProcessed.Inc();
             BatchSizes.Observe(batch.Count);
         }
+    }
+
+    private double StdDev(double[] values)
+    {
+        if (values.Length <= 1)
+        {
+            return 0;
+        }
+
+        var mean = values.Average();
+        var variance = values.Select(v => (v - mean) * (v - mean)).Sum() / (values.Length - 1);
+        return Math.Sqrt(variance);
+    }
+
+    private double Percentile(double[] values, double p)
+    {
+        if (values.Length == 0)
+        {
+            return 0;
+        }
+
+        Array.Sort(values);
+        var idx = (int)Math.Ceiling(p * values.Length) - 1;
+        idx = Math.Clamp(idx, 0, values.Length - 1);
+        return values[idx];
     }
 
     private sealed class Welford

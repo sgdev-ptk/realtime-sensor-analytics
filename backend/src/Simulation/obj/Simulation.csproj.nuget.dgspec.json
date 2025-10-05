@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {}
+    "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {}
   },
   "projects": {
     "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
@@ -92,14 +92,14 @@
         }
       }
     },
-    "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {
+    "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj",
+        "projectUniqueName": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj",
         "projectName": "Simulation",
-        "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj",
+        "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj",
         "packagesPath": "C:\\Users\\sumit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\obj\\",
+        "outputPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

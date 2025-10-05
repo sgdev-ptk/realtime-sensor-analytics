@@ -61,6 +61,7 @@ builder.Services.AddHostedService<Processing.Processor>();
 
 // Data store
 builder.Services.AddSingleton<IRedisStore, RedisStore>();
+builder.Services.AddSingleton<Processing.IStorageSink>(sp => sp.GetRequiredService<IRedisStore>());
 
 // Frame broadcaster (coalesces frames and emits to SignalR groups)
 builder.Services.AddSingleton<IFrameSink, Api.FrameBroadcaster>();

@@ -1,8 +1,8 @@
+namespace Processing;
+
 using Processing.Models;
 
-namespace Infrastructure;
-
-public interface IRedisStore : Processing.IStorageSink
+public interface IStorageSink
 {
     Task StoreReadingAsync(Reading r, CancellationToken ct);
     Task StoreAggregateAsync(Aggregate a, CancellationToken ct);
