@@ -81,10 +81,10 @@ Frontend services & UI:
 - [x] T032 Implement `StatusBar` (ingest, latency, drops) and `TimeWindowPicker` in `frontend/src/app/components/`. (Done)
 
 ## Phase 3.4: Integration
-- [ ] T033 Wire Processor→Redis and Hub publishing; ensure per-sensor and global aggregates in `backend/src/Processing/Processor.cs`.
-- [ ] T034 Configure Redis TTL and maxmemory policy; verify purge behavior in `backend/src/Infrastructure/RedisStore.cs`.
+- [x] T033 Wire Processor→Redis and Hub publishing; ensure per-sensor and global aggregates in `backend/src/Processing/Processor.cs`.
+- [x] T034 Configure Redis TTL and maxmemory policy; verify purge behavior in `backend/src/Infrastructure/RedisStore.cs`.
 - [ ] T035 Add structured logging + minimal tracing spans across Simulator/Processor/Hub in `backend/src/*`.
-- [ ] T036 Frontend: connect services to components; delta frames only; performance tuning flags in `frontend/src/app/*`.
+- [x] T036 Frontend: connect services to components; delta frames only; performance tuning flags in `frontend/src/app/*`.
 - [ ] T037 Add docker compose wiring (ports, env, secrets via env), dev cert mapping in `deploy/docker-compose.yml`.
 
 ## Phase 3.5: Polish

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, signal } from '@angular/core';
 import { SignalRService, Reading } from '../../services/signalr.service';
+import { AlertsService } from '../../services/alerts.service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -61,7 +62,7 @@ export class LiveViewComponent implements OnDestroy {
 
   private sub?: Subscription;
 
-  constructor(private readonly signalR: SignalRService) {}
+  constructor(private readonly signalR: SignalRService, private readonly alerts: AlertsService) {}
 
   connect() {
     if (!this.baseUrl || !this.apiKey) {
@@ -73,6 +74,7 @@ export class LiveViewComponent implements OnDestroy {
       .connect(this.baseUrl, this.apiKey)
       .then(() => {
         this.connecting = false;
+        this.alerts.setAuth(this.baseUrl, this.apiKey);
         this.subscribeFrames();
       })
       .catch((err) => {
