@@ -57,9 +57,9 @@ Integration tests (frontend):
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 Models (backend):
-- [ ] T017 [P] Implement Reading model in `backend/src/Processing/Models/Reading.cs`.
-- [ ] T018 [P] Implement Aggregate model in `backend/src/Processing/Models/Aggregate.cs`.
-- [ ] T019 [P] Implement Alert model in `backend/src/Processing/Models/Alert.cs`.
+- [x] T017 [P] Implement Reading model in `backend/src/Processing/Models/Reading.cs`.
+- [x] T018 [P] Implement Aggregate model in `backend/src/Processing/Models/Aggregate.cs`.
+- [x] T019 [P] Implement Alert model in `backend/src/Processing/Models/Alert.cs`.
 
 Services (backend):
 - [ ] T020 Implement SimulatorHostedService emitting to bounded `Channel<Reading>` in `backend/src/Simulation/SimulatorHostedService.cs`.
