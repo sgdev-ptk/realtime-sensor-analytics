@@ -206,21 +206,10 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "Infrastructure/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/Infrastructure.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Infrastructure.dll": {}
-        }
-      },
       "Processing/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Infrastructure": "1.0.0",
           "Microsoft.Extensions.Hosting.Abstractions": "8.0.0"
         },
         "compile": {
@@ -1300,11 +1289,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Infrastructure/1.0.0": {
-      "type": "project",
-      "path": "../Infrastructure/Infrastructure.csproj",
-      "msbuildProject": "../Infrastructure/Infrastructure.csproj"
-    },
     "Processing/1.0.0": {
       "type": "project",
       "path": "../Processing/Processing.csproj",
@@ -1355,8 +1339,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
-              "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
+            "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
+              "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
             }
           }
         }

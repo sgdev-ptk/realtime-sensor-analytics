@@ -1,6 +1,7 @@
 using System.Threading.Channels;
 using Processing.Models;
 using Simulation;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,9 @@ builder.Services.AddHostedService<SimulatorHostedService>();
 
 // Processor service (reads from channel and computes aggregates/anomalies)
 builder.Services.AddHostedService<Processing.Processor>();
+
+// Data store
+builder.Services.AddSingleton<IRedisStore, RedisStore>();
 
 // Capture API key from configuration (can be null/empty in dev)
 var apiKey = builder.Configuration["API_KEY"];

@@ -1,12 +1,24 @@
 {
   "version": 2,
-  "dgSpecHash": "09QJpQnqQzU=",
+  "dgSpecHash": "hR5zoe/JcP0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sumit\\.nuget\\packages\\microsoft.codeanalysis.netanalyzers\\8.0.0\\microsoft.codeanalysis.netanalyzers.8.0.0.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.1\\microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\8.0.0\\microsoft.extensions.diagnostics.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\8.0.0\\microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\8.0.0\\microsoft.extensions.hosting.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.1\\microsoft.extensions.logging.abstractions.8.0.1.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\stackexchange.redis\\2.7.33\\stackexchange.redis.2.7.33.nupkg.sha512",
     "C:\\Users\\sumit\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.507\\stylecop.analyzers.1.2.0-beta.507.nupkg.sha512",
-    "C:\\Users\\sumit\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.507\\stylecop.analyzers.unstable.1.2.0.507.nupkg.sha512"
+    "C:\\Users\\sumit\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.507\\stylecop.analyzers.unstable.1.2.0.507.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\system.diagnostics.diagnosticsource\\8.0.0\\system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
+    "C:\\Users\\sumit\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512"
   ],
   "logs": []
 }

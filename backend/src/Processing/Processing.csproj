@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
+  <!-- Removed reference to Infrastructure to avoid circular dependency -->
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>

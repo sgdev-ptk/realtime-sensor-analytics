@@ -62,10 +62,9 @@ Models (backend):
 - [x] T019 [P] Implement Alert model in `backend/src/Processing/Models/Alert.cs`.
 
 Services (backend):
-- [ ] T020 Implement SimulatorHostedService emitting to bounded `Channel<Reading>` in `backend/src/Simulation/SimulatorHostedService.cs`.
 - [x] T020 Implement SimulatorHostedService emitting to bounded `Channel<Reading>` in `backend/src/Simulation/SimulatorHostedService.cs`.
 - [x] T021 Implement Processor batching (≤50 ms or 250–500 items), Welford aggregates, z-score anomalies in `backend/src/Processing/Processor.cs`.
-- [ ] T022 Implement Redis repositories (raw, aggregates, alerts with TTL=24h) in `backend/src/Infrastructure/RedisStore.cs`.
+- [x] T022 Implement Redis repositories (raw, aggregates, alerts with TTL=24h) in `backend/src/Infrastructure/RedisStore.cs`.
 
 API & Hub (backend):
 - [ ] T023 Implement SignalR Hub with groups per sensor and coalesced frames (~10–20 FPS) in `backend/src/Api/StreamHub.cs`.
