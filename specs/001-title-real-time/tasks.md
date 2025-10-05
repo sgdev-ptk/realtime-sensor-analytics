@@ -51,9 +51,9 @@ Integration tests (backend):
 - [x] T013 [P] Anomaly detection latency <500 ms and severity mapping in `backend/tests/integration/AnomalyAlertingTests.cs`. (Added stub; skipped)
 
 Integration tests (frontend):
-- [ ] T014 [P] Live chart updates smoothly (≥30 FPS) at 1k/s in `frontend/tests/integration/live_chart.spec.ts`.
-- [ ] T015 [P] Time window switch responsiveness in `frontend/tests/integration/time_window.spec.ts`.
-- [ ] T016 [P] Alert appears and can be acknowledged in `frontend/tests/integration/alerts_ack.spec.ts`.
+- [x] T014 [P] Live chart updates smoothly (≥30 FPS) at 1k/s in `frontend/tests/integration/live_chart.spec.ts`. (Added stub)
+- [x] T015 [P] Time window switch responsiveness in `frontend/tests/integration/time_window.spec.ts`. (Added stub)
+- [x] T016 [P] Alert appears and can be acknowledged in `frontend/tests/integration/alerts_ack.spec.ts`. (Added stub)
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 Models (backend):
