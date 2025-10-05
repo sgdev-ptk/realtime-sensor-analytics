@@ -28,6 +28,7 @@ if (!string.IsNullOrWhiteSpace(certPath) && File.Exists(certPath))
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("default", policy =>
@@ -76,6 +77,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 app.UseCors("default");
@@ -119,15 +124,14 @@ app.Use(async (ctx, next) =>
     ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
 });
 
-// Prometheus metrics endpoints
-app.MapGet("/api/metrics", () => Results.Text("ok", "text/plain")); // contract placeholder
+// Prometheus metrics endpoint (scrape)
 app.MapMetrics("/metrics");
-
-// Ack alert endpoint (requires API key via middleware)
-app.MapPost("/api/ack/{alertId}", (string alertId) => Results.NoContent());
 
 // SignalR stream hub mapping (requires API key via middleware)
 app.MapHub<Api.StreamHub>("/api/stream");
+
+// Map attribute-routed controllers
+app.MapControllers();
 
 app.Run();
 
