@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, '**' ]
+  pull_request:
+
+jobs:
+  build-backend:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore backend/RealtimeSensorAnalytics.sln
+      - name: Build
+        run: dotnet build backend/RealtimeSensorAnalytics.sln -c Release --no-restore
+      - name: Test
+        run: dotnet test backend/RealtimeSensorAnalytics.sln -c Release --no-build --verbosity normal
+
+  lint-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        working-directory: frontend
+        run: npm ci
+      - name: Lint
+        working-directory: frontend
+        run: npm run lint --if-present
+      - name: Format check
+        working-directory: frontend
+        run: npx prettier -c "**/*.{ts,js,html,scss,json,md}"
