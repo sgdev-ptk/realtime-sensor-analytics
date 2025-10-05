@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "c1eE/QzaTL4=",
+  "dgSpecHash": "U+uKWvRxeaI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
+  "projectFilePath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sumit\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\sumit\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\8.0.10\\microsoft.aspnetcore.connections.abstractions.8.0.10.nupkg.sha512",
@@ -156,9 +156,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "Tests depends on Microsoft.AspNetCore.Mvc.Testing (>= 8.0.9) but Microsoft.AspNetCore.Mvc.Testing 8.0.9 was not found. Microsoft.AspNetCore.Mvc.Testing 8.0.10 was resolved instead.",
-      "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
+      "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
+      "filePath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
       "libraryId": "Microsoft.AspNetCore.Mvc.Testing",
       "targetGraphs": [
         "net8.0"
@@ -168,9 +168,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "Tests depends on Microsoft.AspNetCore.SignalR.Client (>= 8.0.9) but Microsoft.AspNetCore.SignalR.Client 8.0.9 was not found. Microsoft.AspNetCore.SignalR.Client 8.0.10 was resolved instead.",
-      "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
+      "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
+      "filePath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\tests\\Tests\\Tests.csproj",
       "libraryId": "Microsoft.AspNetCore.SignalR.Client",
       "targetGraphs": [
         "net8.0"

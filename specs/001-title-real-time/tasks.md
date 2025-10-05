@@ -91,6 +91,7 @@ Frontend services & UI:
 - [x] T038 [P] Unit tests for aggregator (Welford) and anomaly thresholds in `backend/tests/unit/ProcessorMathTests.cs`.
 - [x] T039 [P] Frontend unit tests for `ChartService` in `frontend/src/app/services/chart.service.spec.ts`.
 - [ ] T040 Performance validation script (sustain 1k/s for 10 min; p95 <250 ms; drops ≤5% during 2× burst) in `backend/tests/perf/`.
+   - Progress: Added perf harness (`backend/tests/Perf`) with SignalR client runner and latency capture. Config via env: PERF_RUN=1, PERF_BASE_URL, API_KEY, PERF_SENSOR, PERF_DURATION_SEC, PERF_P95_BUDGET_MS, PERF_MIN_RATE. Defaults to skip when not enabled.
  - [ ] T041 [P] Update docs: quickstart, README, runbook in `specs/001-title-real-time/quickstart.md` and repo `README.md`.
  - [x] T042 Compose hardening: healthchecks, restart policies, resource limits in `deploy/docker-compose.yml`.
  - [x] T043 Manual test checklist and screenshots for demo in `specs/001-title-real-time/`.
