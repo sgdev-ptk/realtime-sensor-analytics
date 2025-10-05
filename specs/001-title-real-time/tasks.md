@@ -35,7 +35,7 @@
 - [x] T004 Add docker compose and base images in `deploy/docker-compose.yml` for Api, Frontend, Redis, (optional) Prometheus & Grafana. (Done: compose + backend/frontend Dockerfiles + prometheus config)
 - [x] T005 [P] Set up HTTPS dev certs, API key via environment, and .env handling (no secrets in repo). (Done: .env.example, compose env_file, Kestrel cert binding, README notes)
 - [x] T006 [P] Add CI basics (build and lint jobs) and dependency lockfiles enforcement. (Done: GitHub Actions for backend build/test and frontend lint/format check)
-- [ ] T007 Install Playwright (or Cypress) for frontend integration tests under `frontend/tests/integration/`.
+- [x] T007 Install Playwright (or Cypress) for frontend integration tests under `frontend/tests/integration/`. (Done: Playwright installed and folder created)
 
 ## Phase 3.2: Tests First (TDD) ⚠ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
