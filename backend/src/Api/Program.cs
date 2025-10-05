@@ -1,5 +1,21 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel to use dev certificate from environment if provided
+var certPath = builder.Configuration["ASPNETCORE_Kestrel:Certificates:Default:Path"]
+              ?? builder.Configuration["ASPNETCORE_Kestrel__Certificates__Default__Path"];
+var certPassword = builder.Configuration["ASPNETCORE_Kestrel:Certificates:Default:Password"]
+                 ?? builder.Configuration["ASPNETCORE_Kestrel__Certificates__Default__Password"];
+if (!string.IsNullOrWhiteSpace(certPath) && File.Exists(certPath))
+{
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ConfigureHttpsDefaults(https =>
+        {
+            https.ServerCertificate = new System.Security.Cryptography.X509Certificates.X509Certificate2(certPath, certPassword);
+        });
+    });
+}
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -15,6 +31,22 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Basic security headers
+app.Use((ctx, next) =>
+{
+    ctx.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    ctx.Response.Headers["X-Frame-Options"] = "DENY";
+    ctx.Response.Headers["X-XSS-Protection"] = "0";
+    return next();
+});
+
+// Allow dev CORS - tighten later
+app.UseCors(policy => policy
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .SetIsOriginAllowed(_ => true));
 
 var summaries = new[]
 {

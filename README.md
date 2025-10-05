@@ -4,6 +4,21 @@
 
 This repo is configured with Copilot Chat slash commands under `.github/prompts` to help you go from idea → spec → plan → tasks → implementation.
 
+Quickstart:
+- Copy `.env.example` to `.env` and set `API_KEY`.
+- Ensure you have a dev HTTPS cert. On Windows/macOS with .NET SDK: run `dotnet dev-certs https -ep <path-to>/aspnetapp.pfx -p <password>` and update `.env` paths.
+- Bring up services via Docker: `docker compose -f deploy/docker-compose.yml up --build`
+
+Services:
+- API: https://localhost:5001
+- Frontend: https://localhost:4200
+- Redis: localhost:6379
+# realtime-sensor-analytics
+
+## Using slash commands
+
+This repo is configured with Copilot Chat slash commands under `.github/prompts` to help you go from idea → spec → plan → tasks → implementation.
+
 Quickstart inside Copilot Chat:
 
 1. Create a feature spec:
