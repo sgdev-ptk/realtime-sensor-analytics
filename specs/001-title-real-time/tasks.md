@@ -63,6 +63,7 @@ Models (backend):
 
 Services (backend):
 - [ ] T020 Implement SimulatorHostedService emitting to bounded `Channel<Reading>` in `backend/src/Simulation/SimulatorHostedService.cs`.
+- [x] T020 Implement SimulatorHostedService emitting to bounded `Channel<Reading>` in `backend/src/Simulation/SimulatorHostedService.cs`.
 - [ ] T021 Implement Processor batching (≤50 ms or 250–500 items), Welford aggregates, z-score anomalies in `backend/src/Processing/Processor.cs`.
 - [ ] T022 Implement Redis repositories (raw, aggregates, alerts with TTL=24h) in `backend/src/Infrastructure/RedisStore.cs`.
 

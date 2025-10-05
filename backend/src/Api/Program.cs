@@ -1,4 +1,6 @@
-using Api;
+using System.Threading.Channels;
+using Processing.Models;
+using Simulation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 
+// Shared bounded channel for simulator -> processor pipeline
+builder.Services.AddSingleton(sp =>
+{
+    var options = new BoundedChannelOptions(100_000)
+    {
+        FullMode = BoundedChannelFullMode.DropOldest,
+        SingleReader = false,
+        SingleWriter = false,
+        AllowSynchronousContinuations = false,
+    };
+    return Channel.CreateBounded<Reading>(options);
+});
+
+// Simulator hosted service (emits readings into the channel)
+builder.Services.AddHostedService<SimulatorHostedService>();
+
 // Capture API key from configuration (can be null/empty in dev)
 var apiKey = builder.Configuration["API_KEY"];
 
@@ -47,12 +65,7 @@ app.Use((ctx, next) =>
     return next();
 });
 
-// Allow dev CORS - tighten later
-app.UseCors(policy => policy
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials()
-    .SetIsOriginAllowed(_ => true));
+// CORS will be configured later (T026)
 
 // API key middleware for protected endpoints
 app.Use(async (ctx, next) =>
@@ -84,15 +97,18 @@ app.MapGet("/api/metrics", () => Results.Text("ok", "text/plain"));
 app.MapPost("/api/ack/{alertId}", (string alertId) => Results.NoContent());
 
 // SignalR stream hub mapping (requires API key via middleware)
-app.MapHub<StreamHub>("/api/stream");
+app.MapHub<Api.StreamHub>("/api/stream");
 
 app.Run();
 
 // Expose Program class for integration testing
 #pragma warning disable SA1600 // Elements should be documented
 #pragma warning disable SA1601 // Partial elements should be documented
-public partial class Program
+namespace Api
 {
+    public partial class Program
+    {
+    }
 }
 #pragma warning restore SA1601
 #pragma warning restore SA1600

@@ -775,8 +775,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj"
+            "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
