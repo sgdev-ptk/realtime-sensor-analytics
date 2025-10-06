@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
       <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.5rem; align-items: end;">
         <label style="display: flex; flex-direction: column;">
           <span>API Base URL</span>
-          <input [(ngModel)]="baseUrl" placeholder="http://localhost:5028" />
+          <input [(ngModel)]="baseUrl" placeholder="https://localhost:7215" />
         </label>
         <button (click)="connect()" [disabled]="connecting">{{ connecting ? 'Connecting…' : 'Connect' }}</button>
       </div>
@@ -51,7 +51,7 @@ import { Subscription } from 'rxjs';
   `,
 })
 export class LiveViewComponent implements OnDestroy {
-  baseUrl = 'http://localhost:5028';
+  baseUrl = 'https://localhost:7215';
   sensorId = 'sensor-1';
 
   connecting = false;
