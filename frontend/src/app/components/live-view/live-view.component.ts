@@ -36,11 +36,16 @@ import { Subscription } from 'rxjs';
         <div>Last reading: <code>{{ lastReadingText }}</code></div>
       </div>
 
-      <div *ngIf="lastFrame.length" style="margin-top: 0.75rem;">
+      <div style="margin-top: 0.75rem;">
         <h3 style="margin: 0 0 0.25rem 0;">Frame preview (up to 10)</h3>
-        <ul style="max-height: 200px; overflow: auto; margin: 0; padding-left: 1rem;">
-          <li *ngFor="let r of lastFrame | slice:0:10">{{ r.sensorId }} — {{ r.ts }} — {{ r.value | number: '1.2-2' }}</li>
-        </ul>
+        <div style="height: 160px; overflow: auto; border: 1px solid #eee; border-radius: 6px; padding: .5rem;">
+          <ul *ngIf="lastFrame.length; else emptyPreview" style="margin: 0; padding-left: 1rem;">
+            <li *ngFor="let r of lastFrame | slice:0:10">{{ r.sensorId }} — {{ r.ts }} — {{ r.value | number: '1.2-2' }}</li>
+          </ul>
+          <ng-template #emptyPreview>
+            <div style="color:#666; font-style: italic;">No frames yet.</div>
+          </ng-template>
+        </div>
       </div>
     </section>
   `,
