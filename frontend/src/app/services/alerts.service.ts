@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AlertsService {
@@ -8,17 +8,15 @@ export class AlertsService {
 
   constructor(private readonly http: HttpClient) {}
 
-  setAuth(baseUrl: string, apiKey: string) {
+  setAuth(baseUrl: string, apiKey?: string) {
     this.baseUrl = baseUrl?.trim();
-    this.apiKey = apiKey?.trim();
+    this.apiKey = apiKey?.trim() ?? '';
   }
 
   ackAlert(alertId: string) {
-    if (!this.baseUrl || !this.apiKey) {
-      throw new Error('AlertsService not configured. Call setAuth(baseUrl, apiKey) first.');
-    }
+    if (!this.baseUrl) throw new Error('AlertsService not configured. Call setAuth(baseUrl) first.');
     const url = `${this.baseUrl}/api/ack/${encodeURIComponent(alertId)}`;
-    const headers = new HttpHeaders({ 'x-api-key': this.apiKey });
-    return this.http.post<void>(url, null, { headers });
+    // API is open; no auth header needed
+    return this.http.post<void>(url, null);
   }
 }

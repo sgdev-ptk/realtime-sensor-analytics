@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
+import { curveMonotoneX } from 'd3-shape';
 import { ChartService, Series, TimeWindow } from '../../services/chart.service';
 import { Subscription } from 'rxjs';
 
@@ -18,19 +19,22 @@ import { Subscription } from 'rxjs';
         <option value="15m">15m</option>
       </select>
     </div>
-    <ngx-charts-line-chart
-      [results]="data"
-      [xScaleMin]="xMin"
-      [xScaleMax]="xMax"
-      [scheme]="scheme"
-      [autoScale]="true"
-      [timeline]="false"
-      [animations]="false"
-      [curve]="'monotoneX'"
-      [yAxis]="true"
-      [xAxis]="true"
-      [showGridLines]="true"
-    ></ngx-charts-line-chart>
+    <div #container style="width: 100%; height: 420px;">
+      <ngx-charts-line-chart
+        [results]="data"
+        [xScaleMin]="xMin"
+        [xScaleMax]="xMax"
+        [scheme]="scheme"
+        [autoScale]="true"
+        [timeline]="false"
+        [animations]="true"
+        [curve]="curve"
+        [yAxis]="true"
+        [xAxis]="true"
+        [showGridLines]="true"
+        [view]="view"
+      ></ngx-charts-line-chart>
+    </div>
   `,
 })
 export class LiveChartComponent implements OnInit, OnDestroy {
@@ -39,12 +43,18 @@ export class LiveChartComponent implements OnInit, OnDestroy {
   xMin: number = Date.now() - 60_000;
   xMax: number = Date.now();
   scheme: Color = { name: 'cool', selectable: true, group: ScaleType.Ordinal, domain: ['#42a5f5'] };
+  curve = curveMonotoneX;
   private sub?: Subscription;
+  @ViewChild('container', { static: true }) containerRef!: ElementRef<HTMLDivElement>;
+  // [width, height] in px; width adapts to container, height fixed to container height
+  view: [number, number] = [700, 420];
 
   constructor(private readonly chart: ChartService) {}
 
   ngOnInit(): void {
     this.chart.setWindow(this.window);
+    // Initialize view based on container size
+    this.resizeView();
     this.sub = this.chart.data$().subscribe((d) => {
       this.data = d;
       const now = Date.now();
@@ -61,6 +71,16 @@ export class LiveChartComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
+  }
+
+  @HostListener('window:resize')
+  private resizeView() {
+    // Safely compute width from container; keep height fixed from container style
+    const el = this.containerRef?.nativeElement;
+    if (!el) return;
+    const width = Math.max(300, el.clientWidth);
+    const height = el.clientHeight || 420;
+    this.view = [width, height];
   }
 
   private toMs(w: TimeWindow): number {

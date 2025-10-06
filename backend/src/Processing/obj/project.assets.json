@@ -1465,23 +1465,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sumit\\.nuget\\packages\\": {},
+    "C:\\Users\\SENTIENTGEEKS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj",
+      "projectUniqueName": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj",
       "projectName": "Processing",
-      "projectPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj",
-      "packagesPath": "C:\\Users\\sumit\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\obj\\",
+      "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj",
+      "packagesPath": "C:\\Users\\SENTIENTGEEKS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\sumit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\SENTIENTGEEKS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1492,8 +1492,7 @@
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.devexpress.com/EQpIb7w1uNh8xDlrghatlI5xgrxYhiU4gYRI2zo71HAg1AbQyT/api": {},
-        "https://pkgs.dev.azure.com/xamarin/public/_packaging/maui-nightly/nuget/v3/index.json": {}
+        "https://nuget.devexpress.com/GQ2IrH4Et7UR55PBXYeeCEbh8pgJF4ybb8vnhdSIYwbT8usrLv/api/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {

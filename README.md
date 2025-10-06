@@ -1,55 +1,32 @@
 # realtime-sensor-analytics
 
-## Using slash commands
-
-This repo is configured with Copilot Chat slash commands under `.github/prompts` to help you go from idea → spec → plan → tasks → implementation.
-
-Quickstart:
-- Copy `.env.example` to `.env` and set `API_KEY`.
-- Ensure you have a dev HTTPS cert. On Windows/macOS with .NET SDK: run `dotnet dev-certs https -ep <path-to>/aspnetapp.pfx -p <password>` and update `.env` paths.
-- Bring up services via Docker: `docker compose -f deploy/docker-compose.yml up --build`
-
-Health checks: the API exposes `/healthz` and Prometheus at `/metrics`; compose uses these for liveness.
-See `specs/001-title-real-time/manual-checklist.md` for a step-by-step manual test flow.
-
-Services:
-- API: https://localhost:5001
-- Frontend: https://localhost:4200
-- Redis: localhost:6379
-
-### Simulator
-The backend includes a simple simulator that emits synthetic readings into the processing pipeline. Configure with environment variables:
-- SIM__SENSORS: number of sensors (default 10)
-- SIM__RATE: total events per second across sensors (default 1000)
-# realtime-sensor-analytics
-
 Real-time sensor analytics demo with .NET 8 (API + SignalR + Redis), Angular 17 frontend, and optional Prometheus/Grafana.
+
+This page is a step-by-step guide for new developers to run the project locally on Windows using PowerShell. It covers an all-in-one Docker setup and a pure local setup.
 
 ## Prerequisites
 
-- Docker Desktop (recommended run path)
-- .NET SDK 8.0+ (for HTTPS dev certs and local runs)
+- Docker Desktop (recommended path to run everything)
+- .NET SDK 8.0+ (for HTTPS dev certs and/or local API runs)
 - Node.js 20 + npm (for local frontend runs)
 
-Quick reference to project structure: `backend/` (.NET), `frontend/` (Angular), `deploy/` (compose), `specs/` (design notes).
+Repo layout: `backend/` (.NET), `frontend/` (Angular), `deploy/` (compose), `specs/` (design notes).
 
-## Run with Docker (recommended)
+## Quick start (Docker — recommended)
 
 1) Copy env and set secrets
 
-- Copy `.env.example` to `.env` at the repo root and set `API_KEY` (used for protected endpoints).
-- The defaults work for local compose (Redis, simulator, HTTPS cert path inside the container).
+- Copy `.env.example` to `.env` at the repo root.
+  (API keys are not required for local development.)
 
 2) Create and trust a local HTTPS dev certificate
 
-- Windows/macOS/Linux with .NET SDK:
-
 ```powershell
-# Trust dev cert on the host (prompts on Windows/macOS)
+# Trust dev cert on the host (prompts on Windows)
 dotnet dev-certs https --trust
 
-# Export a PFX the container can read (password must match .env)
-# This writes to deploy/certs/aspnetapp.pfx with password 'pass123'
+# Export a PFX the container can read (password must match your .env)
+# Writes to deploy/certs/aspnetapp.pfx with password 'pass123'
 New-Item -ItemType Directory -Force -Path ./deploy/certs | Out-Null
 dotnet dev-certs https -ep ./deploy/certs/aspnetapp.pfx -p pass123
 ```
@@ -59,44 +36,49 @@ dotnet dev-certs https -ep ./deploy/certs/aspnetapp.pfx -p pass123
 ```powershell
 # From the repo root
 docker compose -f deploy/docker-compose.yml up --build
-# (Optional) start in background and include monitoring stack
+# Optional: run detached with monitoring
 # docker compose -f deploy/docker-compose.yml --profile monitoring up -d --build
 ```
 
 4) Open the apps
 
 - Frontend: http://localhost:4200
-- API Swagger UI: https://localhost:5001/swagger
-- Health probe: http://localhost:5000/healthz
-- Prometheus (optional profile): http://localhost:9090
-- Grafana (optional profile): http://localhost:3000 (default admin/admin)
+- API Swagger: https://localhost:5001/swagger
+- Health: http://localhost:5000/healthz
+- Prometheus (optional): http://localhost:9090
+- Grafana (optional): http://localhost:3000 (default admin/admin)
 
-5) Stop the stack
+5) Connect the frontend UI
+
+- In Live View, enter:
+  - API Base URL: http://localhost:5000 or https://localhost:5001
+- Click Connect, then Join (sensor-1)
+
+6) Stop the stack
 
 ```powershell
-# Stop and remove containers
 docker compose -f deploy/docker-compose.yml down
-# If you also want to clear Redis data volume, add -v
+# Add -v to also remove the Redis volume
 # docker compose -f deploy/docker-compose.yml down -v
 ```
 
 Notes
-- CORS is set to allow `http://localhost:4200` by default.
-- The API exposes `/metrics` (Prometheus) and `/healthz` (compose liveness/readiness).
-- The built-in simulator runs automatically and publishes synthetic readings; control via `.env` (`SIM__SENSORS`, `SIM__RATE`).
+- CORS allows `http://localhost:4200` by default.
+- API exposes `/metrics` (Prometheus) and `/healthz` (compose liveness/readiness).
+- The simulator runs automatically; tune via `.env` (`SIM__SENSORS`, `SIM__RATE`).
 
-## Run locally (without Docker)
+## Quick start (local without Docker)
 
-You can run Redis + the .NET API + the Angular dev server on your host.
+Run Redis, the .NET API, and the Angular dev server on your machine.
 
-1) Start Redis
+1) Start Redis (via Docker is easiest)
 
 ```powershell
-# Using Docker for Redis
-docker run --name rsa-redis -p 6379:6379 --rm redis:7-alpine redis-server --save "" --appendonly no
+docker run --name rsa-redis -p 6379:6379 --rm redis:7-alpine `
+  redis-server --save "" --appendonly no
 ```
 
-2) Trust HTTPS dev cert (if you haven’t already)
+2) Trust the dev HTTPS certificate (once)
 
 ```powershell
 dotnet dev-certs https --trust
@@ -107,14 +89,13 @@ dotnet dev-certs https --trust
 ```powershell
 # From backend/src/Api
 $env:REDIS__CONNECTION = "localhost:6379"
-$env:API_KEY = "your-local-api-key"
-# Optional: frontend origin override (default is http://localhost:4200)
+$env:API_KEY = "dev-key"
+# Optional: override CORS if needed (default is http://localhost:4200)
 # $env:FRONTEND_ORIGIN = "http://localhost:4200"
 
-# Run API
 dotnet run
-# The console will print the actual HTTP/HTTPS URLs (from launchSettings). Typical:
-# https://localhost:7215 and http://localhost:5028
+# The console will print the actual HTTP/HTTPS URLs from launchSettings, e.g.:
+# http://localhost:5028 and https://localhost:7215
 ```
 
 4) Run the frontend
@@ -126,41 +107,64 @@ npm start
 # Opens http://localhost:4200
 ```
 
-5) Verify
+5) Connect the frontend UI
 
-- API Swagger loads at the printed HTTPS URL (e.g., https://localhost:7215/swagger) and shows endpoints.
-- Frontend at http://localhost:4200 should render and start receiving live data from the simulator.
-- Health: GET http://localhost:5028/healthz (or the printed HTTP port) returns 200.
+- API Base URL: use the port printed by `dotnet run` (e.g., http://localhost:5028 or https://localhost:7215)
+- API Key: not required
+- Click Connect, then Join (sensor-1)
 
-## Auth and protected endpoints
+### One-command local runner (PowerShell)
 
-Set `API_KEY` in your environment (compose uses `.env`). The following endpoints require the key via `x-api-key` header or `?x-api-key=` query string:
+You can use the helper script to run everything locally (starts Redis via Docker if available, then backend and frontend):
 
-- `POST /api/ack/*`
-- `GET /api/stream` (SignalR WebSocket connection)
+```powershell
+pwsh -ExecutionPolicy Bypass -File ./scripts/run-local.ps1 -ApiKey dev-key
+```
 
-Example header: `x-api-key: your-key`.
+Flags:
+- `-CheckOnly` to validate prerequisites and exit
+- `-NoDockerRedis` to skip starting Redis via Docker
+- `-SkipCert` to skip trusting the dev HTTPS cert
+
+## Verify the setup
+
+- API Swagger loads at the printed HTTPS URL (e.g., https://localhost:7215/swagger).
+- Frontend at http://localhost:4200 renders and begins receiving live data.
+- Health returns 200 at the API HTTP URL: `/healthz`.
+
+## Auth
+
+Local development environment does not require an API key. Endpoints like `POST /api/ack/{alertId}` and the SignalR hub `/api/stream` are open for easier setup.
 
 ## Configuration reference
 
-- `API_KEY`: API key for protected endpoints; blank in dev accepts any non-empty value.
+- `API_KEY`: not required in local development.
 - `REDIS__CONNECTION`: Redis connection string (compose default `redis:6379`, local `localhost:6379`).
 - `FRONTEND_ORIGIN`: CORS allowlist origin (default `http://localhost:4200`).
-- `SIM__SENSORS`, `SIM__RATE`: Simulator sensor count and total events/sec.
-- Dev cert mounting in compose:
+- `SIM__SENSORS`, `SIM__RATE`: simulator sensor count and total events/sec.
+- Dev cert in compose:
   - `.env`: `ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx`
   - `.env`: `ASPNETCORE_Kestrel__Certificates__Default__Password=pass123`
-  - `deploy/docker-compose.yml` mounts `./deploy/certs` into the container at `/https`.
+  - `deploy/docker-compose.yml` mounts `./deploy/certs` to `/https`.
 
 ## Troubleshooting
 
-- HTTPS warning or 403 on Swagger: ensure the dev cert is trusted and exported to `deploy/certs/aspnetapp.pfx` with the password from `.env`.
-- CORS errors from the browser: confirm `FRONTEND_ORIGIN` matches the frontend URL (`http://localhost:4200`) and restart the API.
-- Port conflicts (5000/5001/4200/6379): stop the other process or adjust the mappings in `deploy/docker-compose.yml`.
-- Redis not reachable: verify container is up (`docker ps`) and `REDIS__CONNECTION` points to the correct host:port.
+- HTTPS warning or 403 on Swagger: trust the dev cert and ensure `deploy/certs/aspnetapp.pfx` exists with the password from `.env`.
+- CORS errors: confirm `FRONTEND_ORIGIN` matches the frontend URL and restart the API.
+- Port conflicts (5000/5001/4200/6379): stop the conflicting process or adjust port mappings in `deploy/docker-compose.yml`.
+- Redis not reachable: verify the container is running (`docker ps`) and `REDIS__CONNECTION` points to the correct host:port.
+- SignalR connect fails over HTTPS: try the HTTP port first; if HTTPS, ensure the cert is trusted.
 
-## Copilot Chat helper commands
+## Optional monitoring
 
-This repo includes Copilot Chat slash commands under `.github/prompts` to help go from idea → spec → plan → tasks → implementation.
+Enable Prometheus and Grafana via the compose profile:
 
-See `specs/001-title-real-time/manual-checklist.md` for a manual validation flow and `specs/**` for design notes.
+```powershell
+docker compose -f deploy/docker-compose.yml --profile monitoring up -d --build
+```
+
+Prometheus: http://localhost:9090, Grafana: http://localhost:3000 (default admin/admin).
+
+## Dev tips (Copilot Chat)
+
+This repo includes Copilot Chat slash commands under `.github/prompts` to help go from idea → spec → plan → tasks → implementation. See `specs/001-title-real-time/manual-checklist.md` for a manual validation flow and `specs/**` for design notes.

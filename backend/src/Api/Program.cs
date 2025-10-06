@@ -65,11 +65,10 @@ builder.Services.AddSingleton<IRedisStore, RedisStore>();
 builder.Services.AddSingleton<Processing.IStorageSink>(sp => sp.GetRequiredService<IRedisStore>());
 
 // Frame broadcaster (coalesces frames and emits to SignalR groups)
-builder.Services.AddSingleton<IFrameSink, Api.FrameBroadcaster>();
-builder.Services.AddHostedService<Api.FrameBroadcaster>();
-
-// Capture API key from configuration (can be null/empty in dev)
-var apiKey = builder.Configuration["API_KEY"];
+// Ensure a single instance is used both as IFrameSink and the hosted service
+builder.Services.AddSingleton<Api.FrameBroadcaster>();
+builder.Services.AddSingleton<IFrameSink>(sp => sp.GetRequiredService<Api.FrameBroadcaster>());
+builder.Services.AddHostedService(sp => sp.GetRequiredService<Api.FrameBroadcaster>());
 
 var app = builder.Build();
 
@@ -98,33 +97,7 @@ app.Use((ctx, next) =>
 
 // CORS will be configured later (T026)
 
-// API key middleware for protected endpoints
-app.Use(async (ctx, next) =>
-{
-    var path = ctx.Request.Path.Value ?? string.Empty;
-    var requiresKey = path.StartsWith("/api/ack", StringComparison.OrdinalIgnoreCase)
-                      || path.StartsWith("/api/stream", StringComparison.OrdinalIgnoreCase);
-    if (!requiresKey)
-    {
-        await next();
-        return;
-    }
-
-    var provided = ctx.Request.Headers["x-api-key"].ToString();
-    if (string.IsNullOrEmpty(provided))
-    {
-        provided = ctx.Request.Query["x-api-key"].ToString();
-    }
-
-    var acceptAnyWhenNotConfigured = string.IsNullOrWhiteSpace(apiKey);
-    if ((acceptAnyWhenNotConfigured && !string.IsNullOrWhiteSpace(provided)) || provided == apiKey)
-    {
-        await next();
-        return;
-    }
-
-    ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
-});
+// API is open locally: no API key enforcement
 
 // Prometheus metrics endpoint (scrape)
 app.MapMetrics("/metrics");

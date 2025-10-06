@@ -12,14 +12,10 @@ import { Subscription } from 'rxjs';
   template: `
     <section style="padding: 1rem; max-width: 900px; margin: 0 auto; font-family: ui-sans-serif, system-ui, -apple-system;">
       <h2 style="margin-bottom: 0.5rem;">Minimal Live View</h2>
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; align-items: end;">
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.5rem; align-items: end;">
         <label style="display: flex; flex-direction: column;">
           <span>API Base URL</span>
-          <input [(ngModel)]="baseUrl" placeholder="http://localhost:5000" />
-        </label>
-        <label style="display: flex; flex-direction: column;">
-          <span>API Key</span>
-          <input [(ngModel)]="apiKey" placeholder="dev-key" />
+          <input [(ngModel)]="baseUrl" placeholder="http://localhost:5028" />
         </label>
         <button (click)="connect()" [disabled]="connecting">{{ connecting ? 'Connecting…' : 'Connect' }}</button>
       </div>
@@ -50,8 +46,7 @@ import { Subscription } from 'rxjs';
   `,
 })
 export class LiveViewComponent implements OnDestroy {
-  baseUrl = 'http://localhost:5000';
-  apiKey = '';
+  baseUrl = 'http://localhost:5028';
   sensorId = 'sensor-1';
 
   connecting = false;
@@ -62,20 +57,24 @@ export class LiveViewComponent implements OnDestroy {
 
   private sub?: Subscription;
 
-  constructor(private readonly signalR: SignalRService, private readonly alerts: AlertsService) {}
+  constructor(private readonly signalR: SignalRService, private readonly alerts: AlertsService) {
+    // keep the status label in sync with the service
+    this.signalR.connectionState().subscribe((s) => this.connectionState.set(s));
+  }
 
   connect() {
-    if (!this.baseUrl || !this.apiKey) {
-      alert('Enter base URL and API key');
-      return;
-    }
+    if (!this.baseUrl) { alert('Enter base URL'); return; }
     this.connecting = true;
     this.signalR
-      .connect(this.baseUrl, this.apiKey)
+      .connect(this.baseUrl)
       .then(() => {
         this.connecting = false;
-        this.alerts.setAuth(this.baseUrl, this.apiKey);
+        this.alerts.setAuth(this.baseUrl);
         this.subscribeFrames();
+        // Automatically join the current sensor for a fast first run
+        if (this.sensorId) {
+          this.signalR.joinSensor(this.sensorId).catch((e) => console.error('Auto-join failed', e));
+        }
       })
       .catch((err) => {
         this.connecting = false;
@@ -106,11 +105,11 @@ export class LiveViewComponent implements OnDestroy {
   }
 
   isConnected() {
-    // heuristic: we subscribed at connect; alternatively expose connection state from service
-    return !!this.sub;
+    const s = this.connectionState();
+    return s === 'connected' || s === 'reconnecting';
   }
 
-  connectionState = signal('disconnected');
+  connectionState = signal<'disconnected' | 'connecting' | 'connected' | 'reconnecting'>('disconnected');
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();

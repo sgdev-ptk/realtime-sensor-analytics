@@ -162,7 +162,7 @@ public sealed class Processor(ILogger<Processor> logger, Channel<Reading> channe
 
             BatchesProcessed.Inc();
             BatchSizes.Observe(batch.Count);
-            logger.LogInformation("Processed batch size={BatchSize} perSensorAggs={Aggs}", batch.Count, perSensorAggs);
+            //logger.LogInformation("Processed batch size={BatchSize} perSensorAggs={Aggs}", batch.Count, perSensorAggs);
             activity?.SetTag("aggregates.per_sensor", perSensorAggs);
         }
     }

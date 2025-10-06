@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj": {}
+    "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj": {
+    "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj",
-        "packagesPath": "C:\\Users\\sumit\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\obj\\",
+        "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\Api.csproj",
+        "packagesPath": "C:\\Users\\SENTIENTGEEKS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\sumit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\SENTIENTGEEKS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -28,21 +28,20 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.devexpress.com/EQpIb7w1uNh8xDlrghatlI5xgrxYhiU4gYRI2zo71HAg1AbQyT/api": {},
-          "https://pkgs.dev.azure.com/xamarin/public/_packaging/maui-nightly/nuget/v3/index.json": {}
+          "https://nuget.devexpress.com/GQ2IrH4Et7UR55PBXYeeCEbh8pgJF4ybb8vnhdSIYwbT8usrLv/api/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj"
               },
-              "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
-                "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
+              "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
+                "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
               },
-              "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {
-                "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj"
+              "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {
+                "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj"
               }
             }
           }
@@ -109,20 +108,20 @@
         }
       }
     },
-    "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\sumit\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\SENTIENTGEEKS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\sumit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\SENTIENTGEEKS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -133,15 +132,14 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.devexpress.com/EQpIb7w1uNh8xDlrghatlI5xgrxYhiU4gYRI2zo71HAg1AbQyT/api": {},
-          "https://pkgs.dev.azure.com/xamarin/public/_packaging/maui-nightly/nuget/v3/index.json": {}
+          "https://nuget.devexpress.com/GQ2IrH4Et7UR55PBXYeeCEbh8pgJF4ybb8vnhdSIYwbT8usrLv/api/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
-                "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
+              "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
+                "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
               }
             }
           }
@@ -205,20 +203,20 @@
         }
       }
     },
-    "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
+    "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj",
+        "projectUniqueName": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj",
         "projectName": "Processing",
-        "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj",
-        "packagesPath": "C:\\Users\\sumit\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\obj\\",
+        "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj",
+        "packagesPath": "C:\\Users\\SENTIENTGEEKS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\sumit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\SENTIENTGEEKS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -229,8 +227,7 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.devexpress.com/EQpIb7w1uNh8xDlrghatlI5xgrxYhiU4gYRI2zo71HAg1AbQyT/api": {},
-          "https://pkgs.dev.azure.com/xamarin/public/_packaging/maui-nightly/nuget/v3/index.json": {}
+          "https://nuget.devexpress.com/GQ2IrH4Et7UR55PBXYeeCEbh8pgJF4ybb8vnhdSIYwbT8usrLv/api/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
@@ -293,20 +290,20 @@
         }
       }
     },
-    "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {
+    "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj",
+        "projectUniqueName": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj",
         "projectName": "Simulation",
-        "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj",
-        "packagesPath": "C:\\Users\\sumit\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\obj\\",
+        "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\Simulation.csproj",
+        "packagesPath": "C:\\Users\\SENTIENTGEEKS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Simulation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\sumit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\SENTIENTGEEKS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -317,15 +314,14 @@
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.devexpress.com/EQpIb7w1uNh8xDlrghatlI5xgrxYhiU4gYRI2zo71HAg1AbQyT/api": {},
-          "https://pkgs.dev.azure.com/xamarin/public/_packaging/maui-nightly/nuget/v3/index.json": {}
+          "https://nuget.devexpress.com/GQ2IrH4Et7UR55PBXYeeCEbh8pgJF4ybb8vnhdSIYwbT8usrLv/api/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
-                "projectPath": "c:\\Users\\sumit\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
+              "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj": {
+                "projectPath": "C:\\Users\\SENTIENTGEEKS\\Documents\\UpWorkProjects\\realtime-sensor-analytics\\backend\\src\\Processing\\Processing.csproj"
               }
             }
           }
