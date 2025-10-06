@@ -28,7 +28,13 @@ import { FormsModule } from '@angular/forms';
       <span>{{window}}</span>
     </div>
 
-    <!-- Focus range selection -->
+    <!-- Pan controls -->
+    <div style="display:flex; gap: .5rem; margin-bottom: .5rem;">
+      <button (click)="panLeft()">&#8592; Pan Left</button>
+      <button (click)="panRight()">Pan Right &#8594;</button>
+    </div>
+
+    <!-- Focus section selection -->
     <div style="margin-bottom: .5rem; display:flex; gap: .5rem; align-items:center;">
       <label>Focus From:</label>
       <input type="time" [(ngModel)]="focusStart" step="1" (change)="applyFocus()" />
@@ -65,7 +71,7 @@ import { FormsModule } from '@angular/forms';
 export class LiveChartComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() window: TimeWindow = '1m';
   data: Series[] = [];
-  xMin: number = Date.now() - 60_000; // in ms
+  xMin: number = Date.now() - 60_000;
   xMax: number = Date.now();
   scheme: Color = { name: 'cool', selectable: true, group: ScaleType.Ordinal, domain: ['#42a5f5'] };
   curve = curveMonotoneX;
@@ -76,6 +82,7 @@ export class LiveChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Zoom windows
   private windows: TimeWindow[] = ['30s', '1m', '5m', '15m'];
+  private panStep = 10_000; // 10 seconds pan
 
   // Focus section
   focusStart: string = '';
@@ -89,7 +96,7 @@ export class LiveChartComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sub = this.chart.data$().subscribe((d) => {
       this.data = d;
 
-      // Only update xMin/xMax if focus not applied
+      // Only update live xMin/xMax if no focus applied
       if (!this.focusStart || !this.focusEnd) {
         const now = Date.now();
         const ms = this.toMs(this.window);
@@ -107,7 +114,7 @@ export class LiveChartComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sub?.unsubscribe();
   }
 
-  // Zoom in/out buttons
+  // Zoom in/out
   zoomIn() {
     const idx = this.windows.indexOf(this.window);
     if (idx > 0) this.onWindow(this.windows[idx - 1]);
@@ -121,7 +128,7 @@ export class LiveChartComponent implements OnInit, AfterViewInit, OnDestroy {
   onWindow(w: TimeWindow) {
     this.window = w;
     this.chart.setWindow(w);
-    this.resetFocus(); // Reset focus when window changes
+    this.resetFocus();
   }
 
   // Focus section
@@ -149,6 +156,24 @@ export class LiveChartComponent implements OnInit, AfterViewInit, OnDestroy {
     const now = Date.now();
     this.xMax = now;
     this.xMin = now - ms;
+  }
+
+  // Pan left/right
+  panLeft() {
+    this.xMin -= this.panStep;
+    this.xMax -= this.panStep;
+  }
+
+  panRight() {
+    const now = Date.now();
+    if (this.xMax + this.panStep <= now) {
+      this.xMin += this.panStep;
+      this.xMax += this.panStep;
+    } else {
+      const delta = now - this.xMax;
+      this.xMin += delta;
+      this.xMax = now;
+    }
   }
 
   @HostListener('window:resize')
